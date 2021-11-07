@@ -83,12 +83,17 @@ function buildCharts(sample) {
     var top10sample_values = sample_values.slice(0,10);
     console.log(top10sample_values);
 
-    var yticks = top10otu_ids;
+    var yticks_string = top10otu_ids.map(String);
+
+    var yticks = yticks_string.map(i => 'OTU ' + i);
+    console.log(yticks); 
+
+    var xticks = top10sample_values.reverse();
 
     // 8. Create the trace for the bar chart. 
     var trace = {
-        x: top10sample_values,
-        // y: yticks,
+        x: xticks,
+        y: yticks.reverse(),
         type: "bar",
         orientation: 'h'
     };
@@ -96,7 +101,7 @@ function buildCharts(sample) {
     var data = [trace];
     // 9. Create the layout for the bar chart. 
      var layout = {
-         title: "Belly Button Bacteria",
+         title: "Top 10 Bacteria Found",
          xaxis: { title: "Count of Bacteria in your Belly Button" },
          yaxis: { title: "Bacteria ID" }
      };
